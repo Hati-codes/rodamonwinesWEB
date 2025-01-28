@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rodamon Wines</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .video-container {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            /* Add your content styling here */
+        }
+
+        .nav-transparent {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 3%;  /* Cambiado de 5% a 3% */
+            background-color: transparent;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 50px;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: opacity 0.3s;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.7;
+        }
+
+        .main-title {
+            position: absolute;
+            top: 35%;  /* Cambiado de 50% a 35% */
+            left: 3%;  /* Cambiado de 5% a 3% */
+            transform: translateY(-50%);
+            color: white;
+            font-size: 1.8rem;  /* Reducido de 2.2rem */
+            text-align: left;
+            font-family: 'Arial', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            z-index: 2;
+            max-width: 300px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            position: absolute;
+            top: calc(35% + 60px);  /* Cambiado de 50% a 35% */
+            left: 3%;  /* Cambiado de 5% a 3% */
+            color: white;
+            font-size: 1rem;
+            font-family: 'Arial', sans-serif;
+            letter-spacing: 2px;
+            z-index: 2;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .line {
+            display: inline-block;
+            width: 292px;  /* Cambiado de 100px a 200px */
+            height: 1px;
+            background-color: white;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 3%;  /* Cambiado de 5% a 3% */
+            background-color: transparent;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 20px;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .social-links a:hover {
+            opacity: 0.7;
+        }
+
+        .bottom-container {
+            position: absolute;
+            bottom: 18%;
+            right: 3%;
+            color: white;
+            z-index: 2;
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .bottom-title-container {
+            display: flex;
+            align-items: center;
+            gap: 5px; /* Reducido de 10px a 5px */
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .bottom-line {
+            display: inline-block;
+            width: 50px; /* Reducido de 100px a 50px */
+            height: 1px;
+            background-color: white;
+            order: -1; /* Asegura que la línea aparezca antes del título */
+            margin-right: -2px; /* Añadido para acercar aún más al título */
+        }
+
+        .bottom-title {
+            position: relative;
+            color: white;
+            font-size: 1.8rem;  /* Reducido de 2.2rem */
+            font-family: 'Arial', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            max-width: 300px;
+            line-height: 1.2;
+            margin-left: auto;
+            width: fit-content;
+            word-break: break-word; /* Añadido para manejar palabras largas */
+            hyphens: auto; /* Añadido para permitir guiones si es necesario */
+            -webkit-hyphens: auto;
+            -ms-hyphens: auto;
+        }
+
+        .bottom-list {
+            position: relative;
+            color: white;
+            font-size: 0.9rem;
+            font-family: 'Arial', sans-serif;
+            letter-spacing: 2px;
+            opacity: 0.9;
+            list-style: none;
+            line-height: 1.5;
+            margin-left: auto; /* Añadido para justificar a la derecha */
+            width: fit-content; /* Añadido para ajustar el ancho al contenido */
+            text-align: right; /* Asegura que el texto dentro de cada li esté alineado a la derecha */
+        }
+
+        /* Media Queries */
+        @media screen and (max-width: 768px) {
+            .nav-transparent {
+                padding: 15px 3%;
+            }
+
+            .nav-menu {
+                gap: 20px;
+            }
+
+            .nav-menu a {
+                font-size: 14px;
+            }
+
+            .nav-logo {
+                font-size: 16px;
+            }
+
+            .main-title {
+                font-size: 1.3rem;  /* Reducido de 1.4rem */
+                max-width: 250px;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+                gap: 15px;
+            }
+
+            .line {
+                width: 100px;
+            }
+
+            .bottom-title {
+                bottom: 20%;
+                font-size: 1.3rem;  /* Reducido de 1.8rem */
+                max-width: 250px;
+            }
+
+            .bottom-list {
+                bottom: 15%;
+                font-size: 0.8rem;
+            }
+
+            .bottom-container {
+                bottom: 15%;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .nav-menu {
+                display: none; /* Opcionalmente, podrías añadir un menú hamburguesa aquí */
+            }
+
+            .main-title {
+                font-size: 1.2rem;  /* Reducido de 1.6rem */
+                max-width: 200px;
+                top: 30%;
+            }
+
+            .subtitle {
+                font-size: 0.8rem;
+                top: calc(30% + 50px);
+            }
+
+            .social-links {
+                gap: 15px;
+            }
+
+            .social-links a {
+                font-size: 16px;
+            }
+
+            .bottom-title {
+                bottom: 15%;
+                font-size: 1.2rem;  /* Reducido de 1.6rem */
+                max-width: 200px;
+            }
+
+            .bottom-list {
+                bottom: 10%;
+                font-size: 0.7rem;
+            }
+
+            .bottom-container {
+                bottom: 10%;
+            }
+        }
+
+        .wines-section {
+            height: 100vh;
+            width: 100%;
+            background-color: #111613; /* Cambiado de #111111 a un gris verdoso */
+            position: relative;
+            padding: 0 3%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .wines-title {
+            color: white;
+            font-size: 1.8rem;
+            font-family: 'Arial', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+        }
+
+        .wines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .wine-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            color: white;
+            text-align: left;
+        }
+
+        .wine-card h3 {
+            font-family: 'Arial', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .wine-card p {
+            font-family: 'Arial', sans-serif;
+            letter-spacing: 1px;
+            line-height: 1.5;
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        @media screen and (max-width: 768px) {
+            .wines-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .wines-title {
+                font-size: 1.3rem;
+            }
+            
+            .wines-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .about-section {
+            height: 100vh;
+            width: 100%;
+            background-color: #111613; /* Cambiado de #111111 a un gris verdoso */
+            position: relative;
+            padding: 0 3%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+        }
+
+        .about-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-title {
+            font-size: 1.8rem;
+            font-family: 'Arial', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+        }
+
+        .about-text {
+            font-family: 'Arial', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .about-title {
+                font-size: 1.5rem;
+            }
+            .about-text {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .about-title {
+                font-size: 1.3rem;
+            }
+            .about-text {
+                font-size: 0.9rem;
+            }
+        }
+
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            right: 3%; /* Cambiado de left a right */
+            z-index: 1000;
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .audio-control:hover {
+            opacity: 1;
+        }
+
+        .video-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        @keyframes flashTransition {
+            0% { opacity: 0; }
+            50% { opacity: 0.3; }
+            100% { opacity: 0; }
+        }
+
+        .video-transition.active {
+            animation: flashTransition 1s ease-out forwards;
+        }
+    </style>
+    <!-- Añadir FontAwesome para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="video-transition"></div>
+    <audio id="bgAudio" loop muted>
+        <source src="song.wav" type="audio/wav">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+    <nav class="nav-transparent">
+        <a href="#" class="nav-logo">Rodamón Wines</a>
+        <div class="nav-menu">
+            <a href="#inicio">Inicio</a>
+            <a href="#wines">Vinos</a>
+            <a href="#about">Nosotros</a>
+            <a href="#contact">Contacto</a>
+        </div>
+    </nav>
+    <div id="inicio" class="video-container">
+        <video class="bg-video" autoplay muted loop playsinline>
+            <source src="pooring.mp4" type="video/mp4">
+            Tu navegador no soporta la reproducción de video.
+        </video>
+        <h1 class="main-title">Un solo ingrediente</h1>
+        <p class="subtitle">Garnacha negra <span class="line"></span></p>
+        <div class="bottom-container">
+            <div class="bottom-title-container">
+                <span class="bottom-line"></span>
+                <h2 class="bottom-title">Mínima intervención</h2>
+            </div>
+            <ul class="bottom-list">
+                <li>Fermentación espontánea</li>
+                <li>Levaduras indigenas</li>
+                <li>Sin filtrar</li>
+                <li>Sin clarificar</li>
+            </ul>
+        </div>
+        <div class="content">
+            <!-- Add your website content here -->
+        </div>
+    </div>
+    <section id="wines" class="wines-section">
+        <h2 class="wines-title">Nuestros Vinos</h2>
+        <div class="wines-grid">
+            <div class="wine-card">
+                <h3>Rodamón 2024</h3>
+                <p>Vino tinto elaborado con uvas de viñas viejas de más de 80 años. Fermentación espontánea y crianza de 12 meses en barricas de roble francés.</p>
+            </div>
+            <div class="wine-card">
+                <h3>Rodamón Blanc 2024</h3>
+                <p>Vino blanco de altura, elaborado con uvas de viñedos situados a más de 700 metros sobre el nivel del mar. Fermentación en depósitos de acero inoxidable.</p>
+            </div>
+            <div class="wine-card">
+                <h3>Rodamón Clarete 2024</h3>
+                <p>Vino clarete elaborado mediante el método tradicional de cofermentación de uvas tintas y blancas. Fermentación espontánea en depósitos de hormigón.</p>
+            </div>
+        </div>
+    </section>
+    <section id="about" class="about-section">
+        <div class="about-container">
+            <h2 class="about-title">Nuestra Historia</h2>
+            <p class="about-text">
+                En Rodamón Wines, nuestra pasión por el vino natural nos impulsa a crear vinos auténticos y honestos. Trabajamos con viñedos centenarios de garnacha en Vall-llobrega respetando los ciclos naturales de la vid y la tradición vinícola de la región.
+            </p>
+            <p class="about-text">
+                Creemos en la mínima intervención, permitiendo que cada añada exprese libremente las características únicas del terroir. Nuestros vinos son el resultado de un profundo respeto por la tierra y un compromiso inquebrantable con la elaboración artesanal.
+            </p>
+            <p class="about-text">
+                Cada botella cuenta una historia de pasión, tradición y conexión con la naturaleza, representando nuestra búsqueda constante de la expresión más pura de la garnacha.
+            </p>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="social-links">
+            <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </footer>
+    <button class="audio-control">
+        <i class="fas fa-volume-up"></i>
+    </button>
+    <script>
+        window.onload = function() {
+            const audio = document.getElementById('bgAudio');
+            const video = document.querySelector('.bg-video');
+            const audioBtn = document.querySelector('.audio-control i');
+            const transition = document.querySelector('.video-transition');
+            
+            // Detectar cuando el video se reinicia
+            video.addEventListener('timeupdate', function() {
+                if (video.currentTime < 0.1) {  // Detecta el reinicio del video
+                    transition.classList.add('active');
+                    setTimeout(() => {
+                        transition.classList.remove('active');
+                    }, 1000);
+                }
+            });
+
+            // Función para toggle del audio
+            function toggleAudio() {
+                if (audio.muted) {
+                    audio.muted = false;
+                    audioBtn.className = 'fas fa-volume-up';
+                } else {
+                    audio.muted = true;
+                    audioBtn.className = 'fas fa-volume-mute';
+                }
+            }
+
+            // Asignar el evento click al botón
+            document.querySelector('.audio-control').onclick = toggleAudio;
+            
+            // Intentar reproducir cuando el video comience
+            video.addEventListener('play', function() {
+                setTimeout(() => {
+                    audio.muted = false;
+                    audio.play().then(() => {
+                        audioBtn.className = 'fas fa-volume-up';
+                    }).catch(error => {
+                        console.log("Audio autoplay blocked:", error);
+                        audio.muted = true;
+                        audioBtn.className = 'fas fa-volume-mute';
+                        // Fallback para reproducir con click
+                        document.addEventListener('click', () => {
+                            audio.muted = false;
+                            audio.play();
+                            audioBtn.className = 'fas fa-volume-up';
+                        }, { once: true });
+                    });
+                }, 100);
+            });
+        };
+    </script>
+</body>
+</html>
