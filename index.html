@@ -453,6 +453,77 @@
         .video-transition.active {
             animation: flashTransition 1s ease-out forwards;
         }
+
+        /* Nuevos estilos para la sección de contacto */
+        .contact-section {
+            height: 100vh;
+            width: 100%;
+            background-color: #111613;
+            position: relative;
+            padding: 0 3%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn {
+            padding: 12px 24px;
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: white;
+            color: #111613;
+        }
+
+        /* Animaciones de entrada */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
     <!-- Añadir FontAwesome para los iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -460,7 +531,7 @@
 <body>
     <div class="video-transition"></div>
     <audio id="bgAudio" loop muted>
-        <source src="song.wav" type="audio/wav">
+        <source src="song.mp3" type="audio/mp3">
         Tu navegador no soporta el elemento de audio.
     </audio>
     <nav class="nav-transparent">
@@ -473,7 +544,7 @@
         </div>
     </nav>
     <div id="inicio" class="video-container">
-        <video class="bg-video" autoplay muted loop playsinline>
+        <video class="bg-video" autoplay muted loop playsinline preload="auto">
             <source src="pooring.mp4" type="video/mp4">
             Tu navegador no soporta la reproducción de video.
         </video>
@@ -526,6 +597,26 @@
             </p>
         </div>
     </section>
+    <section id="contact" class="contact-section">
+        <div class="contact-container fade-in">
+            <h2 class="about-title">Contacto</h2>
+            <form class="contact-form" onsubmit="return handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mensaje</label>
+                    <textarea id="message" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Enviar</button>
+            </form>
+        </div>
+    </section>
     <footer class="footer">
         <div class="social-links">
             <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
@@ -539,14 +630,55 @@
     </button>
     <script>
         window.onload = function() {
+            // Primero, eliminamos el video existente
+            const videoContainer = document.querySelector('.video-container');
+            const oldVideo = document.querySelector('.bg-video');
+            videoContainer.removeChild(oldVideo);
+
+            // Creamos y añadimos el nuevo video
+            const newVideo = document.createElement('video');
+            newVideo.className = 'bg-video';
+            newVideo.autoplay = true;
+            newVideo.muted = true;
+            newVideo.loop = true;
+            newVideo.playsinline = true;
+            newVideo.preload = 'auto';
+
+            const source = document.createElement('source');
+            source.src = 'pooring.mp4';
+            source.type = 'video/mp4';
+
+            newVideo.appendChild(source);
+            videoContainer.insertBefore(newVideo, videoContainer.firstChild);
+
+            // Iniciamos la reproducción
+            newVideo.play().catch(error => {
+                console.log("Error iniciando video:", error);
+            });
+
             const audio = document.getElementById('bgAudio');
-            const video = document.querySelector('.bg-video');
             const audioBtn = document.querySelector('.audio-control i');
-            const transition = document.querySelector('.video-transition');
+            const transition = document.querySelector('.video-transition');op            let audioInitialized = false;
             
+            // Agregar manejo de errores del video
+            newVideo.addEventListener('error', function(e) {
+                console.error('Error en el video:', e);
+            });
+
+            // Verificar cuando el video se detiene
+            newVideo.addEventListener('pause', function() {
+                console.log('Video pausado');
+                newVideo.play(); // Intentar reproducir de nuevo
+            });
+
+            newVideo.addEventListener('ended', function() {
+                console.log('Video terminado');
+                newVideo.play(); // Asegurar que se reinicie
+            });
+
             // Detectar cuando el video se reinicia
-            video.addEventListener('timeupdate', function() {
-                if (video.currentTime < 0.1) {  // Detecta el reinicio del video
+            newVideo.addEventListener('timeupdate', function() {
+                if (newVideo.currentTime < 0.1) {  // Detecta el reinicio del video
                     transition.classList.add('active');
                     setTimeout(() => {
                         transition.classList.remove('active');
@@ -554,39 +686,102 @@
                 }
             });
 
+            // Asegurar que el loop está activado
+            newVideo.loop = true;
+            
+            // Manejar el final del video explícitamente
+            newVideo.addEventListener('ended', function() {
+                newVideo.currentTime = 0;
+                newVideo.play().catch(function(error) {
+                    console.log("Error reiniciando video:", error);
+                });
+            });
+
             // Función para toggle del audio
             function toggleAudio() {
-                if (audio.muted) {
-                    audio.muted = false;
-                    audioBtn.className = 'fas fa-volume-up';
+                if (!audioInitialized) {
+                    audio.play().then(() => {
+                        audio.muted = false;
+                        audioInitialized = true;
+                        audioBtn.className = 'fas fa-volume-up';
+                    }).catch(error => {
+                        console.log("Error iniciando audio:", error);
+                    });
                 } else {
-                    audio.muted = true;
-                    audioBtn.className = 'fas fa-volume-mute';
+                    if (audio.muted) {
+                        audio.muted = false;
+                        audioBtn.className = 'fas fa-volume-up';
+                    } else {
+                        audio.muted = true;
+                        audioBtn.className = 'fas fa-volume-mute';
+                    }
                 }
             }
 
-            // Asignar el evento click al botón
+            // Asignar el evento click SOLO al botón de audio
             document.querySelector('.audio-control').onclick = toggleAudio;
-            
-            // Intentar reproducir cuando el video comience
-            video.addEventListener('play', function() {
-                setTimeout(() => {
-                    audio.muted = false;
-                    audio.play().then(() => {
-                        audioBtn.className = 'fas fa-volume-up';
-                    }).catch(error => {
-                        console.log("Audio autoplay blocked:", error);
-                        audio.muted = true;
-                        audioBtn.className = 'fas fa-volume-mute';
-                        // Fallback para reproducir con click
-                        document.addEventListener('click', () => {
-                            audio.muted = false;
-                            audio.play();
-                            audioBtn.className = 'fas fa-volume-up';
-                        }, { once: true });
-                    });
-                }, 100);
+
+            // Modificar el manejo del video para que no afecte al audio
+            newVideo.addEventListener('play', function() {
+                if (!audioInitialized) {
+                    audio.muted = true;
+                    audioBtn.className = 'fas fa-volume-mute';
+                }
             });
+
+            // Scroll suave para los enlaces de navegación
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Observer para animaciones de entrada
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                },
+                { threshold: 0.1 }
+            );
+
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+            // Optimización de carga del video
+            const video = document.querySelector('.bg-video');
+            if (video) {
+                video.addEventListener('loadedmetadata', function() {
+                    video.play();
+                });
+                
+                // Reducir calidad en dispositivos móviles
+                if (window.innerWidth <= 768) {
+                    video.setAttribute('poster', 'poster-image.jpg');
+                }
+            }
+
+            // Manejador del formulario
+            window.handleSubmit = function(event) {
+                event.preventDefault();
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    message: document.getElementById('message').value
+                };
+                
+                // Aquí puedes agregar la lógica para enviar el formulario
+                console.log('Formulario enviado:', formData);
+                // Resetear el formulario
+                event.target.reset();
+                alert('Mensaje enviado correctamente');
+                return false;
+            };
         };
     </script>
 </body>
