@@ -18,8 +18,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500&display=swap" rel="stylesheet">
-    <link rel="preload" href="fonts/wildbrush.ttf" as="font" type="font/truetype" crossorigin>
     <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Reemplazar la fuente anterior con Protest Revolution -->
+    <link href="https://fonts.googleapis.com/css2?family=Protest+Revolution&display=swap" rel="stylesheet">
     <style>
         /* Añadir al inicio de los estilos, antes de cualquier otro estilo */
         html, body {
@@ -42,14 +45,6 @@
             }
         }
 
-        @font-face {
-            font-family: 'Wild Brush';
-            src: url('fonts/wildbrush.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -57,7 +52,7 @@
         }
 
         :root {
-            --font-heading: 'Wild Brush', 'Brush Script MT', cursive;
+            --font-heading: 'Protest Revolution', display;
             --font-body: 'Raleway', sans-serif;
         }
 
@@ -106,7 +101,7 @@
         .nav-logo {
             color: white;
             text-decoration: none;
-            font-size: 22px; /* Reducido de 24px a 22px */
+            font-size: 20px; /* Ajustado */
             text-transform: uppercase;
             letter-spacing: 3px; /* Aumentado para mejor legibilidad */
             font-weight: 200; /* Más fino */
@@ -163,12 +158,12 @@
             left: 3%;  /* Cambiado de 5% a 3% */
             transform: translateY(-50%);
             color: white;
-            font-size: 2.5rem; /* Increased size for better readability with this font */
+            font-size: 2.2rem; /* Ajustado */
             text-align: left;
             font-family: var(--font-heading);
-            font-weight: normal; /* Wild Brush works better without extra weight */
+            font-weight: normal; /* Wild Brush works mejor sin peso extra */
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px; /* Ajustado */
             z-index: 2;
             max-width: 300px;
             line-height: 1.2;
@@ -273,11 +268,11 @@
         .bottom-title {
             position: relative;
             color: white;
-            font-size: 2.5rem; /* Increased size for better readability with this font */
+            font-size: 2.2rem; /* Ajustado */
             font-family: var(--font-heading);
-            font-weight: normal; /* Wild Brush works better without extra weight */
+            font-weight: normal; /* Wild Brush works mejor sin peso extra */
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px; /* Ajustado */
             max-width: 300px;
             line-height: 1.2;
             margin-left: auto;
@@ -418,11 +413,11 @@
 
         .wines-title {
             color: white;
-            font-size: 2.5rem; /* Increased size for better readability with this font */
+            font-size: 2.2rem; /* Ajustado */
             font-family: var(--font-heading);
-            font-weight: normal; /* Wild Brush works better without extra weight */
+            font-weight: normal; /* Wild Brush works mejor sin peso extra */
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px; /* Ajustado */
             margin-bottom: 40px;
         }
 
@@ -454,7 +449,7 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 15px;
-            font-size: 1.2rem;
+            font-size: 1.1rem; /* Ajustado */
         }
 
         .wine-card p {
@@ -500,11 +495,11 @@
         }
 
         .about-title {
-            font-size: 2.5rem; /* Increased size for better readability with this font */
+            font-size: 2.2rem; /* Ajustado */
             font-family: var(--font-heading);
-            font-weight: normal; /* Wild Brush works better without extra weight */
+            font-weight: normal; /* Wild Brush works mejor sin peso extra */
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px; /* Ajustado */
             margin-bottom: 40px;
         }
 
@@ -661,7 +656,7 @@
             font-size: 20px;
             text-decoration: none;
             transition: opacity 0.3s;
-            position: fixed;
+            posición: fixed;
             bottom: 20px;
             right: 80px;
             z-index: 1000;
@@ -692,7 +687,7 @@
 
         .age-verification h2 {
             font-family: var(--font-heading);
-            font-size: 2.5rem;
+            font-size: 2.2rem; /* Ajustado */
             margin-bottom: 20px;
         }
 
