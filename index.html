@@ -152,11 +152,18 @@
             width: 100%;
         }
 
-        .main-title {
+        .main-content-container {
             position: absolute;
-            top: 25%;  /* Cambiado de 35% a 25% */
+            top: 35%; /* Changed from 25% to 35% to move it down */
             left: 3%;
-            transform: translateY(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .main-title {
+            position: relative; /* Cambiado de absolute a relative */
             color: white;
             font-size: 3rem;
             text-align: left;
@@ -164,7 +171,6 @@
             font-weight: normal;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            z-index: 2;
             max-width: 300px;
             line-height: 1.2;
             animation: fadeInLeft 1s forwards 1s;
@@ -172,22 +178,24 @@
         }
 
         .subtitle {
-            position: absolute;
-            top: calc(25% + 110px);  /* Cambiado de 160px a 110px para reducir 50px de separación */
-            left: 3%;
+            position: relative; /* Cambiado de absolute a relative */
             color: white;
             font-size: 1rem;
             font-family: var(--font-body);
             font-weight: 300;
             letter-spacing: 0.03em;
-            z-index: 2;
-            opacity: 0.9;
-            display: flex;
-            align-items: center;
-            gap: 0; /* Eliminado el espacio para la línea */
-            margin-top: 40px;
-            animation: fadeInLeft 1s forwards 2s; /* Aumentado a 1s y delay a 2s */
             opacity: 0;
+            animation: fadeInLeft 1s forwards 2s;
+        }
+
+        @media screen and (max-width: 480px) {
+            .main-content-container {
+                position: relative;
+                top: 0;
+                transform: none;
+                margin-top: 30%;
+            }
+            // ...existing mobile styles...
         }
 
         .footer {
@@ -195,12 +203,21 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            padding: 20px 3%;  /* Cambiado de 5% a 3% */
-            background-color: transparent;
+            padding: 20px 3%;
             z-index: 1000;
-            display: flex;
-            justify-content: space-between; /* Cambiado de align-items a space-between */
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
             align-items: center;
+            transform: translateY(100%);
+            transition: all 0.3s ease;
+            background: transparent; /* Cambiado a transparente */
+            backdrop-filter: blur(5px); /* Añadido efecto de desenfoque */
+            -webkit-backdrop-filter: blur(5px); /* Soporte para Safari */
+        }
+
+        .footer.visible {
+            transform: translateY(0);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent); /* Gradiente más sutil */
         }
 
         .social-links {
@@ -208,6 +225,7 @@
             gap: 20px;
             opacity: 1;
             animation: none;
+            justify-self: start;
         }
 
         .social-links a {
@@ -246,14 +264,14 @@
 
         .bottom-container {
             position: absolute;
-            bottom: 18%;
+            bottom: 28%; /* Changed from 18% to 28% to move it up */
             right: 3%;
             color: white;
             z-index: 2;
             text-align: right;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 4px;  /* Cambiado de 8px a 4px para igualar al espaciado del título principal */
             animation: fadeInRight 1s forwards 3s; /* Aumentado a 1s y delay a 3s */
             opacity: 0;
         }
@@ -262,7 +280,7 @@
             display: flex;
             flex-direction: column; /* Cambiado para apilar elementos verticalmente */
             align-items: flex-end;
-            margin-bottom: 20px;
+            margin-bottom: 4px;  /* Cambiado de 8px a 4px */
         }
 
         .bottom-title {
@@ -372,11 +390,12 @@
                 font-size: 2rem;
                 max-width: 200px;
                 top: 30%;
+                margin-bottom: 5px;  /* Cambiado de 20px a 15px */
             }
 
             .subtitle {
                 font-size: 0.8rem;
-                top: calc(30% + 100px);  /* Ajustado también para móviles, de 150px a 100px */
+                margin-top: 50px;
             }
 
             .social-links {
@@ -400,6 +419,64 @@
 
             .bottom-container {
                 bottom: 10%;
+                gap: 4px;  /* Mantener consistencia en móvil */
+            }
+
+            .bottom-title-container {
+                margin-bottom: 4px;  /* Mantener consistencia en móvil */
+            }
+
+            .video-container {
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 0 3%;
+            }
+
+            .bg-video {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                transform: scale(1.05); /* Reducido de 1.1 para móviles */
+            }
+
+            .main-title {
+                font-size: 2.2rem;
+                max-width: 200px;
+                position: relative;
+                top: 0;
+                transform: none;
+                margin-bottom: 20px;
+            }
+
+            .subtitle {
+                position: relative;
+                top: 0;
+                font-size: 0.9rem;
+                margin-top: 0;
+            }
+
+            .bottom-container {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                align-self: flex-end;
+                margin-top: auto;
+                margin-bottom: 60px; /* Espacio para el footer */
+            }
+
+            /* Ajuste para el efecto parallax en móvil */
+            .bg-video {
+                transform: scale(1.05);
+            }
+            
+            /* Ajustar el efecto parallax para móviles */
+            @media (max-width: 480px) {
+                .bg-video {
+                    transform: scale(1.05) translateY(0) !important;
+                }
             }
         }
 
@@ -419,6 +496,7 @@
             text-transform: uppercase;
             letter-spacing: 1.5px; /* Ajustado */
             margin-bottom: 40px;
+            text-align: center; /* Added this line to center the title */
         }
 
         .wines-grid {
@@ -864,6 +942,7 @@
             align-items: center;
             opacity: 1;
             animation: none;
+            justify-self: end;
         }
 
         .warning-icons img {
@@ -887,6 +966,16 @@
         .warning-icons span {
             display: inline-flex;
             align-items: center;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.8); /* Ajustado para mejor legibilidad */
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            text-align: center;
+            opacity: 0.7;
+            letter-spacing: 0.05em;
+            font-weight: 200;
         }
     </style>
     <!-- Añadir FontAwesome para los iconos -->
@@ -959,8 +1048,10 @@
         <video class="bg-video" autoplay muted loop playsinline id="bgVideo">
             <source src="pooring.mp4" type="video/mp4">
         </video>
-        <h1 class="main-title">Un solo ingrediente</h1>
-        <p class="subtitle">Uva ecológica seleccionada a mano</p>
+        <div class="main-content-container">
+            <h1 class="main-title">Un solo ingrediente</h1>
+            <p class="subtitle">Uva ecológica seleccionada a mano</p>
+        </div>
         <div class="bottom-container">
             <div class="bottom-title-container">
                 <h2 class="bottom-title">Mínima intervención</h2>
@@ -978,7 +1069,7 @@
     </div>
     <section id="wines" class="wines-section section-reveal" aria-labelledby="wines-title">
         <div class="section-overlay"></div>
-        <h2 id="wines-title" class="wines-title">Nuestros Vinos</h2>
+        <h2 id="wines-title" class="wines-title">Vinos</h2>
         <div class="wines-grid">
             <div class="wine-card">
                 <h3>Rodamón 2024</h3>
@@ -1047,10 +1138,11 @@
             <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
             <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
         </div>
+        <div class="copyright">RODAMON WINES 2025 © TODOS LOS DERECHOS RESERVADOS</div>
         <div class="warning-icons">
             <span><img src="./images/18.png" alt="Prohibido menores de 18 años"></span>
             <span><img src="./images/embarazada.png" alt="No recomendado durante el embarazo"></span>
-            <span><i class="fas fa-leaf"></i> </span>
+            <span><i class="fas fa-leaf"></i></span>
         </div>
     </footer>
     
@@ -1161,9 +1253,11 @@
 
             // Parallax en video
             window.addEventListener('scroll', function() {
-                const video = document.querySelector('.bg-video');
-                const scrolled = window.pageYOffset;
-                video.style.transform = `scale(1.1) translateY(${scrolled * 0.1}px)`;
+                if (window.innerWidth > 480) {
+                    const video = document.querySelector('.bg-video');
+                    const scrolled = window.pageYOffset;
+                    video.style.transform = `scale(1.1) translateY(${scrolled * 0.1}px)`;
+                }
             });
 
             // Revelar secciones al scroll
@@ -1186,6 +1280,25 @@
             document.querySelectorAll('section').forEach(section => {
                 section.classList.add('section-reveal');
                 sectionObserver.observe(section);
+            });
+
+            // Añadir detección de scroll para el footer
+            const footer = document.querySelector('.footer');
+            let lastScrollY = window.scrollY;
+            
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight;
+                
+                // Mostrar footer cuando estás cerca del final
+                if (currentScrollY + windowHeight >= documentHeight - 50) {
+                    footer.classList.add('visible');
+                } else {
+                    footer.classList.remove('visible');
+                }
+                
+                lastScrollY = currentScrollY;
             });
         };
 
