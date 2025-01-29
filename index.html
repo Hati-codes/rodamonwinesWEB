@@ -4,11 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rodamon Wines</title>
+    <meta name="description" content="Vinos naturales de garnacha en Vall-llobrega. Mínima intervención, máxima expresión del terroir.">
+    <meta name="keywords" content="vino natural, garnacha, Vall-llobrega, vino ecológico, mínima intervención">
+    <meta property="og:title" content="Rodamon Wines - Vinos Naturales">
+    <meta property="og:description" content="Vinos naturales de garnacha en Vall-llobrega">
+    <meta property="og:image" content="image.png">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Rodamon Wines">
+    <meta name="theme-color" content="#111613">
+    <link rel="preload" as="video" href="pooring.mp4">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link rel="preload" href="wildbrush.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Añadir al inicio de los estilos, antes de cualquier otro estilo */
+        html, body {
+            background-color: #111613;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            opacity: 0;
+            animation: fadeIn 0.3s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @font-face {
+            font-family: 'Wild Brush';
+            src: url('wildbrush.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        :root {
+            --font-heading: 'Wild Brush', cursive;
+            --font-body: 'Raleway', sans-serif;
         }
 
         .video-container {
@@ -17,6 +67,7 @@
             width: 100%;
             overflow: hidden;
             background-color: #000000; /* Mantener como fallback */
+            z-index: 1; /* Añadido z-index bajo */
         }
 
         .bg-video {
@@ -25,8 +76,10 @@
             left: 0;
             width: 100%;
             height: 101%;
-            object-fit: contain;
-            z-index: 1;
+            object-fit: cover; /* Cambiado de contain a cover */
+            transform: scale(1.1); /* Para el efecto parallax */
+            transition: transform 0.5s ease-out;
+            z-index: 1; /* Asegurar que el video está por debajo */
         }
 
         .content {
@@ -40,41 +93,68 @@
             top: 0;
             left: 0;
             width: 100%;
-            padding: 20px 3%;  /* Cambiado de 5% a 3% */
+            padding: 15px 3%;  /* Reducido de 20px a 15px */
             background-color: transparent;
             z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
         }
 
         .nav-logo {
             color: white;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 22px; /* Reducido de 24px a 22px */
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: bold;
-            font-family: 'Arial', sans-serif;
+            letter-spacing: 3px; /* Aumentado para mejor legibilidad */
+            font-weight: 200; /* Más fino */
+            font-family: var(--font-heading);
+            transition: opacity 0.3s;
+        }
+
+        .nav-logo:hover {
+            opacity: 0.8;
         }
 
         .nav-menu {
             display: flex;
-            gap: 50px;
+            gap: 40px; /* Reducido de 50px a 40px */
         }
 
         .nav-menu a {
             color: white;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 16px; /* Reducido de 18px a 16px */
             text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: opacity 0.3s;
-            font-family: 'Arial', sans-serif;
+            letter-spacing: 0.08em; /* Aumentado para mejor legibilidad */
+            transition: all 0.3s ease;
+            font-family: var(--font-body);
+            font-weight: 200; /* Reducido de 300 a 200 para hacerlo más fino */
+            position: relative;
+            display: inline-block;
         }
 
         .nav-menu a:hover {
-            opacity: 0.7;
+            transform: translateY(-3px) scale(1.1);
+            color: #E1306C; /* Cambiado de #722F37 a #E1306C */
+            opacity: 1;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px; /* Reducido de -5px a -3px */
+            left: 0;
+            width: 0;
+            height: 0.5px; /* Reducido de 1px a 0.5px */
+            background: #E1306C; /* Cambiado de #722F37 a #E1306C */
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
         }
 
         .main-title {
@@ -83,14 +163,17 @@
             left: 3%;  /* Cambiado de 5% a 3% */
             transform: translateY(-50%);
             color: white;
-            font-size: 1.8rem;  /* Reducido de 2.2rem */
+            font-size: 2.5rem; /* Increased size for better readability with this font */
             text-align: left;
-            font-family: 'Arial', sans-serif;
+            font-family: var(--font-heading);
+            font-weight: normal; /* Wild Brush works better without extra weight */
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             z-index: 2;
             max-width: 300px;
             line-height: 1.2;
+            animation: fadeInLeft 1s forwards 1s; /* Aumentado a 1s y delay a 1s */
+            opacity: 0;
         }
 
         .subtitle {
@@ -99,20 +182,17 @@
             left: 3%;  /* Cambiado de 5% a 3% */
             color: white;
             font-size: 1rem;
-            font-family: 'Arial', sans-serif;
-            letter-spacing: 2px;
+            font-family: var(--font-body);
+            font-weight: 300;
+            letter-spacing: 0.03em;
             z-index: 2;
             opacity: 0.9;
             display: flex;
             align-items: center;
-            gap: 20px;
-        }
-
-        .line {
-            display: inline-block;
-            width: 292px;  /* Cambiado de 100px a 200px */
-            height: 1px;
-            background-color: white;
+            gap: 0; /* Eliminado el espacio para la línea */
+            margin-top: 40px;
+            animation: fadeInLeft 1s forwards 2s; /* Aumentado a 1s y delay a 2s */
+            opacity: 0;
         }
 
         .footer {
@@ -124,23 +204,49 @@
             background-color: transparent;
             z-index: 1000;
             display: flex;
+            justify-content: space-between; /* Cambiado de align-items a space-between */
             align-items: center;
         }
 
         .social-links {
             display: flex;
             gap: 20px;
+            opacity: 1;
+            animation: none;
         }
 
         .social-links a {
             color: white;
             font-size: 20px;
             text-decoration: none;
-            transition: opacity 0.3s;
+            transition: all 0.3s ease;
+            display: inline-block;
         }
 
         .social-links a:hover {
             opacity: 0.7;
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        .social-links a:nth-child(1):hover { /* Facebook */
+            color: #4267B2;
+            opacity: 1;
+        }
+
+        .social-links a:nth-child(2):hover { /* Instagram */
+            color: #E1306C;
+            opacity: 1;
+        }
+
+        .social-links a:nth-child(3):hover { /* Twitter */
+            color: #1DA1F2;
+            opacity: 1;
+        }
+
+        .social-links a:focus,
+        .store-button:focus {
+            outline: 2px solid white;
+            outline-offset: 2px;
         }
 
         .bottom-container {
@@ -153,32 +259,25 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+            animation: fadeInRight 1s forwards 3s; /* Aumentado a 1s y delay a 3s */
+            opacity: 0;
         }
 
         .bottom-title-container {
             display: flex;
-            align-items: center;
-            gap: 5px; /* Reducido de 10px a 5px */
-            justify-content: flex-end;
+            flex-direction: column; /* Cambiado para apilar elementos verticalmente */
+            align-items: flex-end;
             margin-bottom: 20px;
-        }
-
-        .bottom-line {
-            display: inline-block;
-            width: 50px; /* Reducido de 100px a 50px */
-            height: 1px;
-            background-color: white;
-            order: -1; /* Asegura que la línea aparezca antes del título */
-            margin-right: -2px; /* Añadido para acercar aún más al título */
         }
 
         .bottom-title {
             position: relative;
             color: white;
-            font-size: 1.8rem;  /* Reducido de 2.2rem */
-            font-family: 'Arial', sans-serif;
+            font-size: 2.5rem; /* Increased size for better readability with this font */
+            font-family: var(--font-heading);
+            font-weight: normal; /* Wild Brush works better without extra weight */
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             max-width: 300px;
             line-height: 1.2;
             margin-left: auto;
@@ -193,14 +292,36 @@
             position: relative;
             color: white;
             font-size: 0.9rem;
-            font-family: 'Arial', sans-serif;
-            letter-spacing: 2px;
+            font-family: var(--font-body);
+            font-weight: 200;
+            letter-spacing: 0.05em;
             opacity: 0.9;
             list-style: none;
             line-height: 1.5;
             margin-left: auto; /* Añadido para justificar a la derecha */
             width: fit-content; /* Añadido para ajustar el ancho al contenido */
             text-align: right; /* Asegura que el texto dentro de cada li esté alineado a la derecha */
+        }
+
+        .bottom-list li {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        .bottom-list li:nth-child(1) {
+            animation: fadeInRight 0.8s forwards 3.5s;
+        }
+
+        .bottom-list li:nth-child(2) {
+            animation: fadeInRight 0.8s forwards 3.8s;
+        }
+
+        .bottom-list li:nth-child(3) {
+            animation: fadeInRight 0.8s forwards 4.1s;
+        }
+
+        .bottom-list li:nth-child(4) {
+            animation: fadeInRight 0.8s forwards 4.4s;
         }
 
         /* Media Queries */
@@ -210,7 +331,7 @@
             }
 
             .nav-menu {
-                gap: 20px;
+                gap: 25px; /* Reducido de 30px */
             }
 
             .nav-menu a {
@@ -218,11 +339,11 @@
             }
 
             .nav-logo {
-                font-size: 16px;
+                font-size: 18px;
             }
 
             .main-title {
-                font-size: 1.3rem;  /* Reducido de 1.4rem */
+                font-size: 2rem;
                 max-width: 250px;
             }
 
@@ -231,13 +352,9 @@
                 gap: 15px;
             }
 
-            .line {
-                width: 100px;
-            }
-
             .bottom-title {
                 bottom: 20%;
-                font-size: 1.3rem;  /* Reducido de 1.8rem */
+                font-size: 2rem;
                 max-width: 250px;
             }
 
@@ -257,7 +374,7 @@
             }
 
             .main-title {
-                font-size: 1.2rem;  /* Reducido de 1.6rem */
+                font-size: 1.8rem;
                 max-width: 200px;
                 top: 30%;
             }
@@ -277,7 +394,7 @@
 
             .bottom-title {
                 bottom: 15%;
-                font-size: 1.2rem;  /* Reducido de 1.6rem */
+                font-size: 1.8rem;
                 max-width: 200px;
             }
 
@@ -292,22 +409,20 @@
         }
 
         .wines-section {
-            height: 100vh;
-            width: 100%;
-            background-color: #111613; /* Cambiado de #111111 a un gris verdoso */
+            margin-top: -1px; /* Elimina pequeños gaps entre secciones */
+            padding-top: 1px; /* Compensa el margin negativo */
+            min-height: 100vh; /* Cambiar height por min-height para mejor responsividad */
             position: relative;
-            padding: 0 3%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            background-color: #111613;
         }
 
         .wines-title {
             color: white;
-            font-size: 1.8rem;
-            font-family: 'Arial', sans-serif;
+            font-size: 2.5rem; /* Increased size for better readability with this font */
+            font-family: var(--font-heading);
+            font-weight: normal; /* Wild Brush works better without extra weight */
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             margin-bottom: 40px;
         }
 
@@ -321,14 +436,21 @@
         }
 
         .wine-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.07);
             padding: 20px;
             color: white;
             text-align: left;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .wine-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
         }
 
         .wine-card h3 {
-            font-family: 'Arial', sans-serif;
+            font-family: var(--font-heading);
+            font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 15px;
@@ -336,8 +458,9 @@
         }
 
         .wine-card p {
-            font-family: 'Arial', sans-serif;
-            letter-spacing: 1px;
+            font-family: var(--font-body);
+            font-weight: 300;
+            letter-spacing: 0.03em;
             line-height: 1.5;
             opacity: 0.9;
             font-size: 0.9rem;
@@ -345,13 +468,13 @@
 
         @media screen and (max-width: 768px) {
             .wines-title {
-                font-size: 1.5rem;
+                font-size: 2rem;
             }
         }
 
         @media screen and (max-width: 480px) {
             .wines-title {
-                font-size: 1.3rem;
+                font-size: 1.8rem;
             }
             
             .wines-grid {
@@ -364,15 +487,11 @@
         }
 
         .about-section {
-            height: 100vh;
-            width: 100%;
-            background-color: #111613; /* Cambiado de #111111 a un gris verdoso */
+            margin-top: -1px; /* Elimina pequeños gaps entre secciones */
+            padding-top: 1px; /* Compensa el margin negativo */
+            min-height: 100vh; /* Cambiar height por min-height para mejor responsividad */
             position: relative;
-            padding: 0 3%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            color: white;
+            background-color: #111613;
         }
 
         .about-container {
@@ -381,25 +500,27 @@
         }
 
         .about-title {
-            font-size: 1.8rem;
-            font-family: 'Arial', sans-serif;
+            font-size: 2.5rem; /* Increased size for better readability with this font */
+            font-family: var(--font-heading);
+            font-weight: normal; /* Wild Brush works better without extra weight */
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             margin-bottom: 40px;
         }
 
         .about-text {
-            font-family: 'Arial', sans-serif;
+            font-family: var(--font-body);
+            font-weight: 300;
             font-size: 1.1rem;
             line-height: 1.8;
-            letter-spacing: 1px;
+            letter-spacing: 0.03em;
             opacity: 0.9;
             margin-bottom: 30px;
         }
 
         @media screen and (max-width: 768px) {
             .about-title {
-                font-size: 1.5rem;
+                font-size: 2rem;
             }
             .about-text {
                 font-size: 1rem;
@@ -409,7 +530,7 @@
 
         @media screen and (max-width: 480px) {
             .about-title {
-                font-size: 1.3rem;
+                font-size: 1.8rem;
             }
             .about-text {
                 font-size: 0.9rem;
@@ -418,73 +539,65 @@
 
         /* Nuevos estilos para la sección de contacto */
         .contact-section {
-            height: 100vh;
-            width: 100%;
-            background-color: #111613;
+            margin-top: -1px; /* Elimina pequeños gaps entre secciones */
+            padding-top: 1px; /* Compensa el margin negativo */
+            min-height: 100vh; /* Cambiar height por min-height para mejor responsividad */
             position: relative;
-            padding: 0 3%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            color: white;
+            background-color: #111613;
         }
 
         .contact-container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
-        }
-
-        .contact-form {
             display: grid;
-            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            padding: 0 20px;
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+        .contact-info {
+            color: white;
         }
 
-        .form-group input,
-        .form-group textarea {
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
+        .contact-info h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            font-weight: normal;
+        }
+
+        .contact-info p {
+            font-family: var (--font-body);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            letter-spacing: 0.03em;
+        }
+
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .contact-info a:hover {
+            opacity: 0.8;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 400px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-            font-family: 'Arial', sans-serif;
         }
 
-        .form-group label {
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        .submit-btn {
-            padding: 12px 24px;
-            background: transparent;
-            border: 1px solid white;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .submit-btn:hover {
-            background: white;
-            color: #111613;
-        }
-
-        /* Animaciones de entrada */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+        @media screen and (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .map-container {
+                height: 300px;
+            }
         }
 
         /* Estilos para el menú móvil */
@@ -510,6 +623,9 @@
             z-index: 999;
             padding-top: 80px;
             text-align: center;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform: translateY(-100%);
+            opacity: 0;
         }
 
         .mobile-menu a {
@@ -525,6 +641,8 @@
 
         .mobile-menu.active {
             display: block;
+            transform: translateY(0);
+            opacity: 1;
         }
 
         @media screen and (max-width: 480px) {
@@ -536,20 +654,299 @@
                 display: block;
             }
         }
+
+        /* Estilos para el botón de tienda */
+        /* .store-button {
+            color: white;
+            font-size: 20px;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            position: fixed;
+            bottom: 20px;
+            right: 80px;
+            z-index: 1000;
+        } */
+
+        /* Añadir estilos para el modal de edad */
+        .age-verification {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .age-verification-content {
+            background-color: #111613;
+            padding: 40px;
+            text-align: center;
+            color: white;
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .age-verification h2 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .age-verification p {
+            font-family: var(--font-body);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .age-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .age-button {
+            padding: 12px 30px;
+            border: 1px solid white;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            font-family: var(--font-body);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .age-button:hover {
+            background: white;
+            color: #111613;
+        }
+
+        .age-button.yes {
+            background: white;
+            color: #111613;
+        }
+
+        .age-button.yes:hover {
+            background: transparent;
+            color: white;
+        }
+
+        /* Remove or comment out the old .logo-container styles */
+        /* .logo-container {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(calc(-50% - 10px));
+            z-index: 1005;
+            width: 200px;
+            pointer-events: none;
+        } */
+
+        .video-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Corregir estructura de secciones */
+        .wines-section,
+        .about-section,
+        .contact-section {
+            height: 100vh; /* Volver a height fijo */
+            width: 100%;
+            background-color: #111613;
+            position: relative;
+            padding: 80px 3%; /* Aumentar padding superior para compensar nav */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 1; /* Asegurar que está por encima del overlay */
+        }
+
+        /* Ajustar contenedores internos */
+        .wines-grid,
+        .about-container,
+        .contact-container {
+            position: relative;
+            z-index: 2; /* Por encima del overlay */
+        }
+
+        /* Restaurar colores de texto */
+        .wines-title,
+        .about-title,
+        .wine-card h3,
+        .wine-card p,
+        .about-text,
+        .contact-form label {
+            color: white;
+        }
+
+        /* Ajustar overlay */
+        .section-overlay {
+            display: none; /* Ya no necesitamos el overlay */
+        }
+
+        /* Mejorar transiciones */
+        .section-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform, opacity;
+        }
+
+        .section-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Rediseño de las animaciones de sección */
+        .section-reveal {
+            opacity: 0;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .section-reveal::after {
+            display: none; /* Eliminamos completamente el pseudo-elemento que causaba el efecto */
+        }
+
+        .section-reveal.visible {
+            opacity: 1;
+        }
+
+        /* Ajustar el contenido de las secciones */
+        .wines-grid,
+        .about-container,
+        .contact-container {
+            position: relative;
+            z-index: 2;
+            transform: translateY(30px);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition-delay: 0.3s;
+        }
+
+        .section-reveal.visible .wines-grid,
+        .section-reveal.visible .about-container,
+        .section-reveal.visible .contact-container {
+            transform: translateY(0);
+        }
+
+        .warning-icons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            opacity: 1;
+            animation: none;
+        }
+
+        .warning-icons img {
+            height: 30px; /* Aumentado de 24px a 30px */
+            width: auto;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            filter: brightness(0) invert(1); /* Hace las imágenes blancas */
+        }
+
+        .warning-icons i {
+            font-size: 30px; /* Aumentado para el icono de hoja */
+            color: white;
+            opacity: 0.7;
+        }
+
+        .warning-icons img:hover {
+            opacity: 1;
+        }
+
+        .warning-icons span {
+            display: inline-flex;
+            align-items: center;
+        }
     </style>
     <!-- Añadir FontAwesome para los iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Agregar schema.org markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Winery",
+        "name": "Rodamon Wines",
+        "description": "Vinos naturales de garnacha en Vall-llobrega",
+        "url": "https://www.rodamonwines.com",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Vall-llobrega",
+            "addressCountry": "ES"
+        },
+        "makesOffer": [
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Wine",
+                    "name": "Rodamón 2024",
+                    "description": "Vino tinto de viñas viejas"
+                }
+            }
+        ]
+    }
+    </script>
 </head>
 <body>
-    <nav class="nav-transparent">
-        <a href="#" class="nav-logo">Rodamón Wines</a>
+    <!-- Añadir el modal de verificación de edad al principio del body -->
+    <div class="age-verification" id="ageVerification">
+        <div class="age-verification-content">
+            <h2>Verificación de edad</h2>
+            <p>Debes ser mayor de 18 años para acceder a este sitio. ¿Confirmas que eres mayor de edad?</p>
+            <div class="age-buttons">
+                <button class="age-button yes" onclick="verifyAge(true)">Sí, soy mayor de edad</button>
+                <button class="age-button" onclick="verifyAge(false)">No, soy menor</button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="nav-transparent" role="navigation" aria-label="Navegación principal">
+        <a href="javascript:window.location.reload()" class="nav-logo" aria-label="Inicio - Rodamón Wines">
+            Rodamón Wines
+        </a>
         <div class="nav-menu">
             <a href="#inicio">Inicio</a>
             <a href="#wines">Vinos</a>
             <a href="#about">Nosotros</a>
+            <a href="tienda.html">Tienda</a>
             <a href="#contact">Contacto</a>
         </div>
-        <button class="hamburger">
+        <button class="hamburger" aria-label="Menú móvil" aria-expanded="false">
             <i class="fas fa-bars"></i>
         </button>
     </nav>
@@ -559,18 +956,18 @@
         <a href="#inicio">Inicio</a>
         <a href="#wines">Vinos</a>
         <a href="#about">Nosotros</a>
+        <a href="tienda.html">Tienda</a>
         <a href="#contact">Contacto</a>
     </div>
 
     <div id="inicio" class="video-container">
-        <video class="bg-video" autoplay muted loop playsinline>
+        <video class="bg-video" autoplay muted loop playsinline id="bgVideo">
             <source src="pooring.mp4" type="video/mp4">
         </video>
         <h1 class="main-title">Un solo ingrediente</h1>
-        <p class="subtitle">Garnacha negra <span class="line"></span></p>
+        <p class="subtitle">Uva ecológica seleccionada a mano</p>
         <div class="bottom-container">
             <div class="bottom-title-container">
-                <span class="bottom-line"></span>
                 <h2 class="bottom-title">Mínima intervención</h2>
             </div>
             <ul class="bottom-list">
@@ -584,16 +981,17 @@
             <!-- Add your website content here -->
         </div>
     </div>
-    <section id="wines" class="wines-section">
-        <h2 class="wines-title">Nuestros Vinos</h2>
+    <section id="wines" class="wines-section section-reveal" aria-labelledby="wines-title">
+        <div class="section-overlay"></div>
+        <h2 id="wines-title" class="wines-title">Nuestros Vinos</h2>
         <div class="wines-grid">
             <div class="wine-card">
                 <h3>Rodamón 2024</h3>
-                <p>Vino tinto elaborado con uvas de viñas viejas de más de 80 años. Fermentación espontánea y crianza de 12 meses en barricas de roble francés.</p>
+                <p>Vino tinto elaborado a partir de Garnacha tintorera. Fermentación espontánea con levaduras autóctonas, sin filtrado ni clarificado y sin sulfitos añadidos</p>
             </div>
             <div class="wine-card">
                 <h3>Rodamón Blanc 2024</h3>
-                <p>Vino blanco de altura, elaborado con uvas de viñedos situados a más de 700 metros sobre el nivel del mar. Fermentación en depósitos de acero inoxidable.</p>
+                <p>Vino blanco elaborado con Malvasia. Fermentación espontánea con levaduras autóctonas, sin filtrado ni clarificado ni sulfitos añadidos.</p>
             </div>
             <div class="wine-card">
                 <h3>Rodamón Clarete 2024</h3>
@@ -601,9 +999,10 @@
             </div>
         </div>
     </section>
-    <section id="about" class="about-section">
+    <section id="about" class="about-section section-reveal" aria-labelledby="about-title">
+        <div class="section-overlay"></div>
         <div class="about-container">
-            <h2 class="about-title">Nuestra Historia</h2>
+            <h2 id="about-title" class="about-title">Nuestra Historia</h2>
             <p class="about-text">
                 En Rodamón Wines, nuestra pasión por el vino natural nos impulsa a crear vinos auténticos y honestos. Trabajamos con viñedos centenarios de garnacha en Vall-llobrega respetando los ciclos naturales de la vid y la tradición vinícola de la región.
             </p>
@@ -615,24 +1014,36 @@
             </p>
         </div>
     </section>
-    <section id="contact" class="contact-section">
+    <section id="contact" class="contact-section section-reveal" aria-labelledby="contact-title">
+        <div class="section-overlay"></div>
         <div class="contact-container fade-in">
-            <h2 class="about-title">Contacto</h2>
-            <form class="contact-form" onsubmit="return handleSubmit(event)">
-                <div class="form-group">
-                    <label for="name">Nombre</label>
-                    <input type="text" id="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Mensaje</label>
-                    <textarea id="message" rows="4" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Enviar</button>
-            </form>
+            <div class="contact-info">
+                <h2 id="contact-title" class="about-title">Contacto</h2>
+                <p>
+                    <strong>Email:</strong>
+                    <a href="mailto:info@rodamonwines.com">info@rodamonwines.com</a>
+                </p>
+                <p>
+                    <strong>Teléfono:</strong>
+                    <a href="tel:+34627052737">627 052 737</a>
+                </p>
+                <p>
+                    <strong>Dirección:</strong><br>
+                    Vall-llobrega, Girona<br>
+                    España
+                </p>
+            </div>
+            <div class="map-container">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11894.744814589754!2d3.1278!3d41.8876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12bafe0a2f3e3b6f%3A0x2c42d0i3c8f0e0f!2sVall-llobrega%2C%20Girona!5e0!3m2!1ses!2ses!4v1234567890123!5m2!1ses!2ses"
+                    width="100%"
+                    height="100%"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
         </div>
     </section>
     <footer class="footer">
@@ -640,16 +1051,53 @@
             <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
             <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
             <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <div class="warning-icons">
+            <span><img src="18.png" alt="Prohibido menores de 18 años"></span>
+            <span><img src="embarazada.png" alt="No recomendado durante el embarazo"></span>
+            <span><i class="fas fa-leaf"></i> </span>
         </div>
     </footer>
+    
+    <!-- Modificar el botón de tienda para que sea más simple -->
+    <!-- <a href="tienda.html" class="store-button">
+        <i class="fas fa-shopping-cart"></i>
+    </a> -->
+
     <script>
+        // Añadir antes del window.onload
+        function verifyAge(isAdult) {
+            if (isAdult) {
+                localStorage.setItem('ageVerified', 'true');
+                document.getElementById('ageVerification').style.display = 'none';
+            } else {
+                window.location.href = 'https://www.google.com';
+            }
+        }
+
+        // Comprobar si ya se verificó la edad
+        if (localStorage.getItem('ageVerified') === 'true') {
+            document.getElementById('ageVerification').style.display = 'none';
+        }
+
         window.onload = function() {
+            // Añadir al principio del window.onload
+            const video = document.getElementById('bgVideo');
+            video.addEventListener('loadedmetadata', function() {
+                video.currentTime = 1;
+            });
+
             // Scroll suave para los enlaces de navegación
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    const target = document.querySelector(this.getAttribute('href'));
+                    const headerOffset = 100;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition - headerOffset;
+
+                    window.scrollBy({
+                        top: offsetPosition,
                         behavior: 'smooth'
                     });
                 });
@@ -689,8 +1137,10 @@
             const mobileLinks = document.querySelectorAll('.mobile-menu a');
 
             hamburger.addEventListener('click', () => {
+                const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+                hamburger.setAttribute('aria-expanded', !isExpanded);
                 mobileMenu.classList.toggle('active');
-                hamburger.innerHTML = mobileMenu.classList.contains('active') ? 
+                hamburger.innerHTML = !isExpanded ? 
                     '<i class="fas fa-times"></i>' : 
                     '<i class="fas fa-bars"></i>';
             });
@@ -699,10 +1149,66 @@
             mobileLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     mobileMenu.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
                     hamburger.innerHTML = '<i class="fas fa-bars"></i>';
                 });
             });
+
+            // Mejorar el manejo del foco para accesibilidad
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                    hamburger.focus();
+                }
+            });
+
+            // Parallax en video
+            window.addEventListener('scroll', function() {
+                const video = document.querySelector('.bg-video');
+                const scrolled = window.pageYOffset;
+                video.style.transform = `scale(1.1) translateY(${scrolled * 0.1}px)`;
+            });
+
+            // Revelar secciones al scroll
+            const sectionObserver = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            // Mantener visible una vez revelado
+                            sectionObserver.unobserve(entry.target);
+                        }
+                    });
+                },
+                { 
+                    threshold: 0.15, // Aumentado para mejor timing
+                    rootMargin: '-50px 0px'
+                }
+            );
+
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.add('section-reveal');
+                sectionObserver.observe(section);
+            });
         };
+
+        // Actualizar el observer para las secciones
+        const sectionObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Ya no desvinculamos el observer para permitir animaciones repetidas
+                    }
+                });
+            },
+            { 
+                threshold: 0.2, // Aumentado para mejor timing
+                rootMargin: '-10% 0px'
+            }
+        );
     </script>
 </body>
 </html>

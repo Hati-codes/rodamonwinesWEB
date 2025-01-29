@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda - Rodamon Wines</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #111613;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;  /* Previene scroll horizontal */
+        }
+
+        /* Copiar los estilos exactos del nav y footer del index */
+        .nav-transparent {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 3%;
+            background-color: transparent;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 50px;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: opacity 0.3s;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.7;
+        }
+
+        /* Estilos específicos de la tienda */
+        .store-container {
+            min-height: 100vh;  /* Cambiado de padding a min-height */
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 3% 100px;  /* Ajustado el padding */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .store-title {
+            color: white;
+            font-size: 1.8rem;
+            font-family: 'Arial', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 0;  /* Eliminado el margen inferior */
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 3%;
+            background-color: transparent;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 20px;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .social-links a:hover {
+            opacity: 0.7;
+        }
+
+        /* Copiar los media queries del index */
+        @media screen and (max-width: 768px) {
+            .nav-menu {
+                gap: 20px;
+            }
+            .nav-menu a {
+                font-size: 14px;
+            }
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .nav-menu {
+                display: none;
+            }
+            .hamburger {
+                display: block;
+            }
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Estilos del menú móvil */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 999;
+            padding-top: 80px;
+            text-align: center;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: white;
+            font-size: 24px;
+            padding: 20px;
+            text-decoration: none;
+            font-family: 'Arial', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="nav-transparent">
+        <a href="index.html" class="nav-logo">Rodamón Wines</a>
+        <div class="nav-menu">
+            <a href="index.html">Inicio</a>
+            <a href="index.html#wines">Vinos</a>
+            <a href="index.html#about">Nosotros</a>
+            <a href="tienda.html">Tienda</a>
+            <a href="index.html#contact">Contacto</a>
+        </div>
+        <button class="hamburger">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Contenido de la tienda -->
+    <main class="store-container">
+        <h1 class="store-title">Nuestros Vinos</h1>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="vino1.jpg" alt="Rodamón 2024" class="product-image">
+                <h2 class="product-title">Rodamón 2024</h2>
+                <p class="product-description">Vino tinto elaborado con uvas de viñas viejas de más de 80 años. Fermentación espontánea y crianza de 12 meses en barricas de roble francés.</p>
+                <p class="product-price">15.00 €</p>
+                <button class="buy-button">Añadir al carrito</button>
+            </div>
+
+            <div class="product-card">
+                <img src="vino2.jpg" alt="Rodamón Blanc 2024" class="product-image">
+                <h2 class="product-title">Rodamón Blanc 2024</h2>
+                <p class="product-description">Vino blanco de altura, elaborado con uvas de viñedos situados a más de 700 metros sobre el nivel del mar. Fermentación en depósitos de acero inoxidable.</p>
+                <p class="product-price">16.00 €</p>
+                <button class="buy-button">Añadir al carrito</button>
+            </div>
+
+            <div class="product-card">
+                <img src="vino3.jpg" alt="Rodamón Clarete 2024" class="product-image">
+                <h2 class="product-title">Rodamón Clarete 2024</h2>
+                <p class="product-description">Vino clarete elaborado mediante el método tradicional de cofermentación de uvas tintas y blancas. Fermentación espontánea en depósitos de hormigón.</p>
+                <p class="product-price">15.00 €</p>
+                <button class="buy-button">Añadir al carrito</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Manejo del menú móvil
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            hamburger.innerHTML = mobileMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : 
+                '<i class="fas fa-bars"></i>';
+        });
+    </script>
+</body>
+</html>
