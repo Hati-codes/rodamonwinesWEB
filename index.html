@@ -249,11 +249,6 @@
             opacity: 1;
         }
 
-        .social-links a:nth-child(3):hover { /* Twitter */
-            color: #1DA1F2;
-            opacity: 1;
-        }
-
         .social-links a:focus,
         .store-button:focus {
             outline: 2px solid white;
@@ -998,6 +993,59 @@
             letter-spacing: 0.05em;
             font-weight: 200;
         }
+
+        /* Estilos para el slider móvil */
+        @media screen and (max-width: 480px) {
+            .wines-grid {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none; /* Firefox */
+                -ms-overflow-style: none; /* IE/Edge */
+                gap: 0;
+                padding: 0 20px;
+            }
+
+            .wines-grid::-webkit-scrollbar {
+                display: none; /* Chrome/Safari/Opera */
+            }
+
+            .wine-card {
+                min-width: 85%;
+                margin-right: 20px;
+                scroll-snap-align: center;
+            }
+
+            .wine-card:last-child {
+                margin-right: 0;
+            }
+
+            /* Estilos para los controles del slider */
+            .slider-controls {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 20px;
+            }
+
+            .slider-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.3);
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .slider-dot.active {
+                background: white;
+                transform: scale(1.2);
+            }
+
+            .wines-section {
+                padding: 60px 0;
+            }
+        }
     </style>
     <!-- Añadir FontAwesome para los iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -1114,6 +1162,12 @@
                 <p>Monovarietal de Garnacha tintorera, 14% prensado suave manual</p>
             </div>
         </div>
+        <!-- Añadir los controles del slider -->
+        <div class="slider-controls">
+            <span class="slider-dot active" data-index="0"></span>
+            <span class="slider-dot" data-index="1"></span>
+            <span class="slider-dot" data-index="2"></span>
+        </div>
     </section>
     <section id="about" class="about-section section-reveal" aria-labelledby="about-title">
         <div class="section-overlay"></div>
@@ -1166,7 +1220,6 @@
         <div class="social-links">
             <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
             <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
         </div>
         <div class="copyright">RODAMON WINES 2025 ©</div>
         <div class="warning-icons">
@@ -1330,6 +1383,71 @@
                 
                 lastScrollY = currentScrollY;
             });
+
+            // Añadir funcionalidad del slider
+            if (window.innerWidth <= 480) {
+                const winesGrid = document.querySelector('.wines-grid');
+                const dots = document.querySelectorAll('.slider-dot');
+                const cards = document.querySelectorAll('.wine-card');
+
+                // Actualizar dots al hacer scroll
+                winesGrid.addEventListener('scroll', () => {
+                    const scrollPosition = winesGrid.scrollLeft;
+                    const cardWidth = cards[0].offsetWidth + 20; // 20 es el margin-right
+                    const currentIndex = Math.round(scrollPosition / cardWidth);
+
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentIndex);
+                    });
+                });
+
+                // Click en los dots
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        const cardWidth = cards[0].offsetWidth + 20;
+                        winesGrid.scrollTo({
+                            left: cardWidth * index,
+                            behavior: 'smooth'
+                        });
+                    });
+                });
+
+                // Añadir soporte para swipe
+                let touchStartX = 0;
+                let touchEndX = 0;
+
+                winesGrid.addEventListener('touchstart', e => {
+                    touchStartX = e.changedTouches[0].screenX;
+                });
+
+                winesGrid.addEventListener('touchend', e => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                });
+
+                function handleSwipe() {
+                    const diff = touchStartX - touchEndX;
+                    const cardWidth = cards[0].offsetWidth + 20;
+                    const currentScroll = winesGrid.scrollLeft;
+                    const currentIndex = Math.round(currentScroll / cardWidth);
+
+                    if (Math.abs(diff) > 50) { // Umbral mínimo para considerar swipe
+                        if (diff > 0 && currentIndex < cards.length - 1) {
+                            // Swipe izquierda
+                            winesGrid.scrollTo({
+                                left: cardWidth * (currentIndex + 1),
+                                behavior: 'smooth'
+                            });
+                        } else if (diff < 0 && currentIndex > 0) {
+                            // Swipe derecha
+                            winesGrid.scrollTo({
+                                left: cardWidth * (currentIndex - 1),
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                }
+            }
         };
 
         // Actualizar el observer para las secciones
