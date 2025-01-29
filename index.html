@@ -190,10 +190,11 @@
 
         @media screen and (max-width: 480px) {
             .main-content-container {
-                position: relative;
-                top: 0;
+                position: absolute;
+                top: 25%; /* Cambiado de 30% a 25% para subirlo */
+                left: 3%;
                 transform: none;
-                margin-top: 30%;
+                margin-top: 0; /* Eliminado el margin-top que estaba causando el desplazamiento */
             }
             // ...existing mobile styles...
         }
@@ -423,9 +424,9 @@
                 height: 100vh;
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
+                justify-content: flex-start; /* Cambiado de center a flex-start */
                 align-items: flex-start;
-                padding: 0 3%;
+                padding: 80px 3% 0 3%; /* Añadido padding-top para compensar la navegación */
             }
 
             .bg-video {
