@@ -412,19 +412,20 @@
             }
 
             .bottom-container {
-                bottom: 10%;
-                gap: 4px;  /* Mantener consistencia en móvil */
-            }
-
-            .bottom-title-container {
-                margin-bottom: 4px;  /* Mantener consistencia en móvil */
+                position: relative;
+                bottom: auto;
+                right: auto;
+                align-self: flex-end;
+                margin-top: auto;
+                margin-bottom: 120px; /* Aumentado de 60px a 120px para subirlo más */
+                padding-right: 3%;
             }
 
             .video-container {
                 height: 100vh;
                 display: flex;
                 flex-direction: column;
-                justify-content: flex-start; /* Cambiado de center a flex-start */
+                justify-content: space-between; /* Cambiado a space-between para mejor distribución */
                 align-items: flex-start;
                 padding: 80px 3% 0 3%; /* Añadido padding-top para compensar la navegación */
             }
@@ -955,7 +956,7 @@
 
         .warning-icons {
             display: flex;
-            gap: 15px;
+            gap: 10px; /* Reducido de 15px a 10px */
             align-items: center;
             opacity: 1;
             animation: none;
