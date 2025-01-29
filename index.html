@@ -21,8 +21,8 @@
     <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Reemplazar la fuente anterior con Protest Revolution -->
-    <link href="https://fonts.googleapis.com/css2?family=Protest+Revolution&display=swap" rel="stylesheet">
+    <!-- Reemplazar la fuente anterior con Shadows Into Light -->
+    <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
     <style>
         /* Añadir al inicio de los estilos, antes de cualquier otro estilo */
         html, body {
@@ -52,7 +52,7 @@
         }
 
         :root {
-            --font-heading: 'Protest Revolution', display;
+            --font-heading: 'Shadows Into Light', cursive;
             --font-body: 'Raleway', sans-serif;
         }
 
@@ -99,11 +99,11 @@
         }
 
         .nav-logo {
-            color: white;
+            color: #E1306C; /* Cambiado de white a #E1306C */
             text-decoration: none;
-            font-size: 20px; /* Ajustado */
+            font-size: 24px; /* Ajustado */
             text-transform: uppercase;
-            letter-spacing: 3px; /* Aumentado para mejor legibilidad */
+            letter-spacing: 2px; /* Aumentado para mejor legibilidad */
             font-weight: 200; /* Más fino */
             font-family: var(--font-heading);
             transition: opacity 0.3s;
@@ -154,27 +154,27 @@
 
         .main-title {
             position: absolute;
-            top: 35%;  /* Cambiado de 50% a 35% */
-            left: 3%;  /* Cambiado de 5% a 3% */
+            top: 25%;  /* Cambiado de 35% a 25% */
+            left: 3%;
             transform: translateY(-50%);
             color: white;
-            font-size: 2.2rem; /* Ajustado */
+            font-size: 3rem;
             text-align: left;
             font-family: var(--font-heading);
-            font-weight: normal; /* Wild Brush works mejor sin peso extra */
+            font-weight: normal;
             text-transform: uppercase;
-            letter-spacing: 1px; /* Ajustado */
+            letter-spacing: 1.5px;
             z-index: 2;
             max-width: 300px;
             line-height: 1.2;
-            animation: fadeInLeft 1s forwards 1s; /* Aumentado a 1s y delay a 1s */
+            animation: fadeInLeft 1s forwards 1s;
             opacity: 0;
         }
 
         .subtitle {
             position: absolute;
-            top: calc(35% + 60px);  /* Cambiado de 50% a 35% */
-            left: 3%;  /* Cambiado de 5% a 3% */
+            top: calc(25% + 110px);  /* Cambiado de 160px a 110px para reducir 50px de separación */
+            left: 3%;
             color: white;
             font-size: 1rem;
             font-family: var(--font-body);
@@ -268,11 +268,11 @@
         .bottom-title {
             position: relative;
             color: white;
-            font-size: 2.2rem; /* Ajustado */
+            font-size: 3rem; /* Ajustado */
             font-family: var(--font-heading);
             font-weight: normal; /* Wild Brush works mejor sin peso extra */
             text-transform: uppercase;
-            letter-spacing: 1px; /* Ajustado */
+            letter-spacing: 1.5px; /* Ajustado */
             max-width: 300px;
             line-height: 1.2;
             margin-left: auto;
@@ -338,7 +338,7 @@
             }
 
             .main-title {
-                font-size: 2rem;
+                font-size: 2.5rem;
                 max-width: 250px;
             }
 
@@ -349,7 +349,7 @@
 
             .bottom-title {
                 bottom: 20%;
-                font-size: 2rem;
+                font-size: 2.5rem;
                 max-width: 250px;
             }
 
@@ -369,14 +369,14 @@
             }
 
             .main-title {
-                font-size: 1.8rem;
+                font-size: 2rem;
                 max-width: 200px;
                 top: 30%;
             }
 
             .subtitle {
                 font-size: 0.8rem;
-                top: calc(30% + 50px);
+                top: calc(30% + 100px);  /* Ajustado también para móviles, de 150px a 100px */
             }
 
             .social-links {
@@ -389,7 +389,7 @@
 
             .bottom-title {
                 bottom: 15%;
-                font-size: 1.8rem;
+                font-size: 2rem;
                 max-width: 200px;
             }
 
@@ -413,11 +413,11 @@
 
         .wines-title {
             color: white;
-            font-size: 2.2rem; /* Ajustado */
+            font-size: 3rem; /* Ajustado */
             font-family: var(--font-heading);
             font-weight: normal; /* Wild Brush works mejor sin peso extra */
             text-transform: uppercase;
-            letter-spacing: 1px; /* Ajustado */
+            letter-spacing: 1.5px; /* Ajustado */
             margin-bottom: 40px;
         }
 
@@ -447,9 +447,9 @@
             font-family: var(--font-heading);
             font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             margin-bottom: 15px;
-            font-size: 1.1rem; /* Ajustado */
+            font-size: 1.4rem; /* Ajustado */
         }
 
         .wine-card p {
@@ -463,13 +463,13 @@
 
         @media screen and (max-width: 768px) {
             .wines-title {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
         }
 
         @media screen and (max-width: 480px) {
             .wines-title {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
             .wines-grid {
@@ -495,11 +495,11 @@
         }
 
         .about-title {
-            font-size: 2.2rem; /* Ajustado */
+            font-size: 3rem; /* Ajustado */
             font-family: var(--font-heading);
             font-weight: normal; /* Wild Brush works mejor sin peso extra */
             text-transform: uppercase;
-            letter-spacing: 1px; /* Ajustado */
+            letter-spacing: 1.5px; /* Ajustado */
             margin-bottom: 40px;
         }
 
@@ -515,7 +515,7 @@
 
         @media screen and (max-width: 768px) {
             .about-title {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
             .about-text {
                 font-size: 1rem;
@@ -525,7 +525,7 @@
 
         @media screen and (max-width: 480px) {
             .about-title {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             .about-text {
                 font-size: 0.9rem;
@@ -655,7 +655,7 @@
             color: white;
             font-size: 20px;
             text-decoration: none;
-            transition: opacity 0.3s;
+            transición: opacity 0.3s;
             posición: fixed;
             bottom: 20px;
             right: 80px;
@@ -687,7 +687,7 @@
 
         .age-verification h2 {
             font-family: var(--font-heading);
-            font-size: 2.2rem; /* Ajustado */
+            font-size: 3rem; /* Ajustado */
             margin-bottom: 20px;
         }
 
